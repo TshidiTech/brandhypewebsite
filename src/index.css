@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand Hype Design System - Enhanced Visual Appeal */
+
+@layer base {
+  :root {
+    /* Enhanced Brand Colors */
+    --background: 0 0% 6%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 75 100% 60%;
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 75 100% 60%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
+    --ring: 75 100% 60%;
+
+    /* Enhanced Brand Specific */
+    --brand-lime: 75 100% 60%;
+    --brand-lime-glow: 75 100% 65%;
+    --brand-black: 0 0% 6%;
+    --brand-white: 0 0% 98%;
+    --brand-dark-gray: 0 0% 14%;
+    --brand-medium-gray: 0 0% 25%;
+    
+    /* Enhanced Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(0 0% 11%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(75 100% 60%) 0%, hsl(75 90% 55%) 50%, hsl(75 100% 65%) 100%);
+    --gradient-subtle: linear-gradient(180deg, transparent 0%, hsl(75 100% 60% / 0.05) 100%);
+    
+    /* Enhanced Shadows */
+    --shadow-card: 0 4px 25px -5px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 35px hsl(75 100% 60% / 0.25);
+    --shadow-intense: 0 15px 50px -10px hsl(0 0% 0% / 0.6);
+    --shadow-accent: 0 8px 32px -8px hsl(75 100% 60% / 0.3);
+    
+    /* Enhanced Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Remove dark mode override - using consistent brand colors */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Enhanced Hero Button Variants */
+  .btn-hero {
+    @apply bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-4 rounded-lg;
+    @apply transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn-hero:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-outline-hero {
+    @apply border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground;
+    @apply px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-[1.02];
+    @apply bg-transparent backdrop-blur-sm;
+  }
+
+  .btn-outline-hero:hover {
+    box-shadow: var(--shadow-accent);
+  }
+
+  /* Enhanced Package Card */
+  .package-card {
+    @apply bg-card border border-border rounded-xl p-6 relative overflow-hidden;
+    @apply transition-all duration-500 hover:scale-[1.01];
+    box-shadow: var(--shadow-card);
+  }
+
+  .package-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: var(--gradient-subtle);
+  }
+
+  .package-card:hover {
+    box-shadow: var(--shadow-intense);
+    @apply border-accent/30;
+  }
+
+  .package-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Enhanced Typing Animation */
+  .typing-cursor::after {
+    content: '|';
+    @apply text-accent animate-pulse;
+  }
+
+  /* Enhanced Floating Elements */
+  .floating-chat {
+    @apply fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground;
+    @apply w-16 h-16 rounded-full flex items-center justify-center;
+    @apply hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .floating-chat:hover {
+    box-shadow: var(--shadow-intense), var(--shadow-glow);
+  }
+
+  /* Enhanced Scroll Animations */
+  .fade-in-up {
+    @apply opacity-0 translate-y-12 transition-all duration-700 ease-out;
+  }
+
+  .fade-in-up.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .stagger-animation {
+    @apply opacity-0 translate-y-8 transition-all duration-500;
+  }
+
+  .stagger-animation.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Enhanced Gradients */
+  .gradient-hero {
+    background: var(--gradient-hero);
+    position: relative;
+  }
+
+.gradient-hero::before {
+  content: '';
+  @apply absolute inset-0 opacity-30 pointer-events-none;
+  background: radial-gradient(circle at 30% 20%, hsl(75 100% 60% / 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, hsl(75 100% 60% / 0.08) 0%, transparent 50%);
+}
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px hsl(75 100% 60% / 0.3));
+  }
+
+  /* Enhanced Interactive Elements */
+  .interactive-glow {
+    @apply transition-all duration-300;
+  }
+
+  .interactive-glow:hover {
+    filter: drop-shadow(0 0 20px hsl(75 100% 60% / 0.4));
+  }
+
+  /* Page Transitions */
+  .page-enter {
+    @apply opacity-0 translate-y-4;
+  }
+
+  .page-enter-active {
+    @apply opacity-100 translate-y-0 transition-all duration-500;
+  }
+
+  /* Enhanced Form Elements */
+  .form-glow:focus-within {
+    box-shadow: 0 0 0 2px hsl(75 100% 60% / 0.2), var(--shadow-card);
+  }
+
+  /* Enhanced Chat Interface */
+  .chat-message {
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  .chat-container {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+
+  .chat-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chat-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chat-container::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+
+  .chat-container::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
