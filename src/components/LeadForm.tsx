@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Send, ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import InputField from "./InputField";
 
 interface LeadFormProps {
   onSuccess?: () => void;
@@ -150,7 +151,7 @@ Website: ${formData.website || "N/A"}
       case 1:
         return (
           <div className="space-y-4">
-            <label className="block font-medium">What would you like to build?</label>
+            <Label>What would you like to build?</Label>
             <div className="grid gap-3">
               {projectTypes.map(pt => (
                 <button
@@ -220,7 +221,7 @@ Website: ${formData.website || "N/A"}
             {assets.map(a => (
               <div key={a} className="flex items-center gap-2">
                 <Checkbox id={a} checked={formData.existingAssets.includes(a)} onCheckedChange={() => toggleAsset(a)} />
-                <label htmlFor={a}>{a}</label>
+                <Label htmlFor={a}>{a}</Label>
               </div>
             ))}
           </div>
@@ -239,16 +240,30 @@ Website: ${formData.website || "N/A"}
       case 8:
         return (
           <div className="space-y-4">
-            <InputField id="name" label="Full Name *" value={formData.name} onChange={val => setFormData(prev => ({ ...prev, name: val }))} />
-            <InputField id="email" label="Email *" type="email" value={formData.email} onChange={val => setFormData(prev => ({ ...prev, email: val }))} />
-            <InputField id="phone" label="WhatsApp Number *" type="tel" value={formData.phone} onChange={val => setFormData(prev => ({ ...prev, phone: val }))} />
-            <InputField id="company" label="Company (Optional)" value={formData.company} onChange={val => setFormData(prev => ({ ...prev, company: val }))} />
-            <InputField id="website" label="Website/Instagram (Optional)" value={formData.website} onChange={val => setFormData(prev => ({ ...prev, website: val }))} />
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name *</Label>
+              <Input id="name" value={formData.name} onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))} placeholder="John Doe" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email *</Label>
+              <Input id="email" type="email" value={formData.email} onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))} placeholder="john@company.com" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">WhatsApp Number *</Label>
+              <Input id="phone" type="tel" value={formData.phone} onChange={e => setFormData(prev => ({ ...prev, phone: e.target.value }))} placeholder="+27 81 234 5678" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="company">Company (Optional)</Label>
+              <Input id="company" value={formData.company} onChange={e => setFormData(prev => ({ ...prev, company: e.target.value }))} placeholder="Your company" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="website">Website/Instagram (Optional)</Label>
+              <Input id="website" value={formData.website} onChange={e => setFormData(prev => ({ ...prev, website: e.target.value }))} placeholder="https://" />
+            </div>
           </div>
         );
 
-      default:
-        return null;
+      default: return null;
     }
   };
 
@@ -264,11 +279,19 @@ Website: ${formData.website || "N/A"}
         <form onSubmit={handleSubmit} className="space-y-6">
           {renderStep()}
           <div className="flex gap-3">
-            {currentStep > 1 && <Button type="button" variant="outline" onClick={handleBack} className="flex-1"><ArrowLeft className="mr-2 w-4 h-4"/>Back</Button>}
+            {currentStep > 1 && (
+              <Button type="button" variant="outline" onClick={handleBack} className="flex-1">
+                <ArrowLeft className="mr-2 w-4 h-4"/>Back
+              </Button>
+            )}
             {currentStep < totalSteps ? (
-              <Button type="button" onClick={handleNext} disabled={!isStepValid()} className="flex-1">Next<ArrowRight className="ml-2 w-4 h-4"/></Button>
+              <Button type="button" onClick={handleNext} disabled={!isStepValid()} className="flex-1">
+                Next<ArrowRight className="ml-2 w-4 h-4"/>
+              </Button>
             ) : (
-              <Button type="submit" disabled={isSubmitting || !isStepValid()} className="flex-1">{isSubmitting ? "Sending..." : "Submit"}<Send className="ml-2 w-4 h-4"/></Button>
+              <Button type="submit" disabled={isSubmitting || !isStepValid()} className="flex-1">
+                {isSubmitting ? "Sending..." : "Submit"}<Send className="ml-2 w-4 h-4"/>
+              </Button>
             )}
           </div>
           <div className="flex gap-1 justify-center pt-2">
