@@ -23,45 +23,34 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     projectType: serviceType || "",
-    stage: "",
     goal: "",
     budget: "",
-    timeline: "",
-    existingAssets: [] as string[],
+    audience: "",
     description: "",
     name: "",
     email: "",
     phone: "",
-    company: "",
-    website: ""
   });
 
-  const totalSteps = 8;
+  const totalSteps = 5;
 
   const projectTypes = [
-    { value: "business-website", label: "A business website 🌐" },
-    { value: "web-app", label: "A web app 💻" },
-    { value: "mobile-app", label: "A mobile app 📱" },
-    { value: "chatbot", label: "A chatbot or AI assistant 🤖" },
-    { value: "prototype", label: "A prototype or MVP 🚀" },
-    { value: "not-sure", label: "Not sure yet — need guidance 💬" }
-  ];
-
-  const stages = [
-    "Just exploring ideas",
-    "Have a clear concept, need a prototype",
-    "Have designs, need development",
-    "Already live, need improvements",
-    "Ongoing support or maintenance"
+    { value: "website", label: "Website 🌐" },
+    { value: "web-app", label: "Web App 💻" },
+    { value: "mobile-app", label: "Mobile App 📱" },
+    { value: "branding", label: "Branding or Rebrand 🎨" },
+    { value: "marketing", label: "Digital Marketing 📈" },
+    { value: "ai", label: "AI / Automation 🤖" },
+    { value: "not-sure", label: "Not sure yet — need advice 💬" },
   ];
 
   const goals = [
-    "Launch a new product/startup",
-    "Improve user experience or conversions",
-    "Automate business processes",
-    "Build internal tools",
-    "Showcase my brand or portfolio",
-    "Other"
+    "Launch a new business or product",
+    "Improve brand presence",
+    "Get more leads or sales",
+    "Automate part of my business",
+    "Showcase my portfolio",
+    "Other",
   ];
 
   const budgets = [
@@ -70,81 +59,51 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     "R15,000 – R30,000",
     "R30,000 – R50,000",
     "Above R50,000",
-    "Not sure yet — I'd like a recommendation"
+    "Not sure yet",
   ];
 
-  const timelines = [
-    "ASAP (within 1–2 weeks)",
-    "2–4 weeks",
-    "1–2 months",
-    "Flexible — depends on your schedule"
-  ];
-
-  const assets = [
-    "Brand name & logo",
-    "Domain name",
-    "Content or copy",
-    "UI/UX design",
-    "Prototype or wireframes",
-    "None yet — I'll need help with all"
+  const audiences = [
+    "Small business owners",
+    "Corporate clients",
+    "General public",
+    "Niche / industry-specific",
+    "Internal company use",
   ];
 
   const handleNext = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-    }
+    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const toggleAsset = (asset: string) => {
-    setFormData(prev => ({
-      ...prev,
-      existingAssets: prev.existingAssets.includes(asset)
-        ? prev.existingAssets.filter(a => a !== asset)
-        : [...prev.existingAssets, asset]
-    }));
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       const emailBody = `
 NEW PROJECT INQUIRY
 
-=== PROJECT DETAILS ===
 Project Type: ${formData.projectType}
-Current Stage: ${formData.stage}
-Main Goal: ${formData.goal}
-Budget Range: ${formData.budget}
-Timeline: ${formData.timeline}
+Goal: ${formData.goal}
+Budget: ${formData.budget}
+Audience: ${formData.audience}
 
-=== EXISTING ASSETS ===
-${formData.existingAssets.join(', ') || 'None'}
-
-=== PROJECT DESCRIPTION ===
+About Project:
 ${formData.description}
 
-=== CONTACT INFO ===
+CONTACT INFO
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Company: ${formData.company || 'N/A'}
-Website: ${formData.website || 'N/A'}
       `.trim();
 
       const mailtoLink = `mailto:admin@brandhype.co.za?subject=New Project Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
-
-      navigate('/thank-you');
+      navigate("/thank-you");
       onSuccess?.();
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong. Please try WhatsApp or email us directly.",
@@ -152,20 +111,6 @@ Website: ${formData.website || 'N/A'}
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1: return !!formData.projectType;
-      case 2: return !!formData.stage;
-      case 3: return !!formData.goal;
-      case 4: return !!formData.budget;
-      case 5: return !!formData.timeline;
-      case 6: return formData.existingAssets.length > 0;
-      case 7: return formData.description.trim().length > 10;
-      case 8: return !!formData.name && !!formData.email && !!formData.phone;
-      default: return true;
     }
   };
 
@@ -194,17 +139,11 @@ Website: ${formData.website || 'N/A'}
       case 2:
         return (
           <div className="space-y-4">
-            <Label>What stage are you in right now?</Label>
-            <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your current stage" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[150]">
-                {stages.map((stage) => (
-                  <SelectItem key={stage} value={stage}>
-                    {stage}
-                  </SelectItem>
-                ))}
+            <Label>What’s your main goal for this project?</Label>
+            <Select value={formData.goal} onValueChange={(v) => setFormData({ ...formData, goal: v })}>
+              <SelectTrigger><SelectValue placeholder="Select your goal" /></SelectTrigger>
+              <SelectContent className="bg-popover z-[9999]">
+                {goals.map((goal) => <SelectItem key={goal} value={goal}>{goal}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -213,17 +152,11 @@ Website: ${formData.website || 'N/A'}
       case 3:
         return (
           <div className="space-y-4">
-            <Label>What's your main goal for this project?</Label>
-            <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your main goal" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[150]">
-                {goals.map((goal) => (
-                  <SelectItem key={goal} value={goal}>
-                    {goal}
-                  </SelectItem>
-                ))}
+            <Label>What’s your estimated budget range?</Label>
+            <Select value={formData.budget} onValueChange={(v) => setFormData({ ...formData, budget: v })}>
+              <SelectTrigger><SelectValue placeholder="Select your budget" /></SelectTrigger>
+              <SelectContent className="bg-popover z-[9999]">
+                {budgets.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -232,134 +165,36 @@ Website: ${formData.website || 'N/A'}
       case 4:
         return (
           <div className="space-y-4">
-            <Label>What's your estimated budget range?</Label>
-            <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your budget range" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[150]">
-                {budgets.map((budget) => (
-                  <SelectItem key={budget} value={budget}>
-                    {budget}
-                  </SelectItem>
-                ))}
+            <Label>Who is this project for?</Label>
+            <Select value={formData.audience} onValueChange={(v) => setFormData({ ...formData, audience: v })}>
+              <SelectTrigger><SelectValue placeholder="Select your audience" /></SelectTrigger>
+              <SelectContent className="bg-popover z-[9999]">
+                {audiences.map((a) => <SelectItem key={a} value={a}>{a}</SelectItem>)}
               </SelectContent>
             </Select>
+
+            <Label htmlFor="description">Tell us about your project</Label>
+            <Textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="Briefly describe what you’d like to achieve..."
+              className="min-h-[120px]"
+            />
           </div>
         );
 
       case 5:
         return (
           <div className="space-y-4">
-            <Label>What's your ideal timeline?</Label>
-            <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your timeline" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[150]">
-                {timelines.map((timeline) => (
-                  <SelectItem key={timeline} value={timeline}>
-                    {timeline}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        );
+            <Label htmlFor="name">Full Name *</Label>
+            <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" />
 
-      case 6:
-        return (
-          <div className="space-y-4">
-            <Label>Do you already have any of these?</Label>
-            <p className="text-sm text-muted-foreground">Select all that apply</p>
-            <div className="space-y-3">
-              {assets.map((asset) => (
-                <div key={asset} className="flex items-center space-x-3">
-                  <Checkbox
-                    id={asset}
-                    checked={formData.existingAssets.includes(asset)}
-                    onCheckedChange={() => toggleAsset(asset)}
-                  />
-                  <Label htmlFor={asset} className="cursor-pointer font-normal">
-                    {asset}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+            <Label htmlFor="email">Email *</Label>
+            <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@company.com" />
 
-      case 7:
-        return (
-          <div className="space-y-4">
-            <Label htmlFor="description">Tell us a bit about your project</Label>
-            <p className="text-sm text-muted-foreground">
-              In a few sentences, tell us what you'd like to create or what problem you're solving.
-            </p>
-            <Textarea
-              id="description"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Describe your project..."
-              className="min-h-[120px]"
-            />
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="John Doe"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="john@company.com"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="phone">WhatsApp Number *</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+27 81 234 5678"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="company">Company Name or Brand (Optional)</Label>
-              <Input
-                id="company"
-                value={formData.company}
-                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                placeholder="Your company"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="website">Instagram/Website Link (Optional)</Label>
-              <Input
-                id="website"
-                value={formData.website}
-                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                placeholder="https://"
-              />
-            </div>
+            <Label htmlFor="phone">WhatsApp Number *</Label>
+            <Input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+27 81 234 5678" />
           </div>
         );
 
@@ -369,69 +204,35 @@ Website: ${formData.website || 'N/A'}
   };
 
   return (
-    <Card className="package-card w-full">
-      {showTitle && (
-        <CardHeader>
-          <CardTitle className="text-2xl">Start Your Project</CardTitle>
-          <p className="text-muted-foreground">Step {currentStep} of {totalSteps}</p>
-        </CardHeader>
-      )}
-      <CardContent className={showTitle ? "" : "pt-6"}>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {renderStep()}
-
-          <div className="flex gap-3 pt-4">
-            {currentStep > 1 && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleBack}
-                className="flex-1"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
-              </Button>
-            )}
-
-            {currentStep < totalSteps ? (
-              <Button
-                type="button"
-                onClick={handleNext}
-                disabled={!isStepValid()}
-                className="flex-1 btn-hero"
-              >
-                Next
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            ) : (
-              <Button
-                type="submit"
-                disabled={isSubmitting || !isStepValid()}
-                className="flex-1 btn-hero"
-              >
-                {isSubmitting ? "Sending..." : "Submit"}
-                <Send className="ml-2 w-4 h-4" />
-              </Button>
-            )}
-          </div>
-
-          <div className="flex gap-1 justify-center">
-            {Array.from({ length: totalSteps }).map((_, i) => (
-              <div
-                key={i}
-                className={`h-2 rounded-full transition-all ${
-                  i + 1 === currentStep
-                    ? "w-8 bg-primary"
-                    : i + 1 < currentStep
-                    ? "w-2 bg-primary/50"
-                    : "w-2 bg-muted"
-                }`}
-              />
-            ))}
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+    <div className="relative z-[999]">
+      <Card className="package-card w-full">
+        {showTitle && (
+          <CardHeader>
+            <CardTitle className="text-2xl">Start Your Project</CardTitle>
+            <p className="text-muted-foreground">Step {currentStep} of {totalSteps}</p>
+          </CardHeader>
+        )}
+        <CardContent className={showTitle ? "" : "pt-6"}>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {renderStep()}
+            <div className="flex gap-3 pt-4">
+              {currentStep > 1 && (
+                <Button type="button" variant="outline" onClick={handleBack} className="flex-1">
+                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                </Button>
+              )}
+              {currentStep < totalSteps ? (
+                <Button type="button" onClick={handleNext} className="flex-1 btn-hero">Next <ArrowRight className="w-4 h-4 ml-2" /></Button>
+              ) : (
+                <Button type="submit" disabled={isSubmitting} className="flex-1 btn-hero">
+                  {isSubmitting ? "Sending..." : "Submit"} <Send className="ml-2 w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
