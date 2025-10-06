@@ -36,7 +36,7 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     website: ""
   });
 
-  const totalSteps = 9;
+  const totalSteps = 8;
 
   const projectTypes = [
     { value: "business-website", label: "A business website 🌐" },
@@ -142,7 +142,6 @@ Website: ${formData.website || 'N/A'}
       const mailtoLink = `mailto:admin@brandhype.co.za?subject=New Project Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
 
-      // Redirect to thank you page
       navigate('/thank-you');
       onSuccess?.();
     } catch (error) {
@@ -175,21 +174,19 @@ Website: ${formData.website || 'N/A'}
       case 1:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>What would you like to build?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {projectTypes.map((type) => (
-                  <Button
-                    key={type.value}
-                    type="button"
-                    variant={formData.projectType === type.value ? "default" : "outline"}
-                    className="w-full justify-start text-left h-auto py-4"
-                    onClick={() => setFormData({ ...formData, projectType: type.value })}
-                  >
-                    {type.label}
-                  </Button>
-                ))}
-              </div>
+            <Label>What would you like to build?</Label>
+            <div className="grid gap-3">
+              {projectTypes.map((type) => (
+                <Button
+                  key={type.value}
+                  type="button"
+                  variant={formData.projectType === type.value ? "default" : "outline"}
+                  className="w-full justify-start text-left h-auto py-4"
+                  onClick={() => setFormData({ ...formData, projectType: type.value })}
+                >
+                  {type.label}
+                </Button>
+              ))}
             </div>
           </div>
         );
@@ -197,107 +194,97 @@ Website: ${formData.website || 'N/A'}
       case 2:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>What stage are you in right now?</Label>
-              <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your current stage" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100]">
-                  {stages.map((stage) => (
-                    <SelectItem key={stage} value={stage}>
-                      {stage}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Label>What stage are you in right now?</Label>
+            <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select your current stage" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover z-[150]">
+                {stages.map((stage) => (
+                  <SelectItem key={stage} value={stage}>
+                    {stage}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
 
       case 3:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>What's your main goal for this project?</Label>
-              <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your main goal" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100]">
-                  {goals.map((goal) => (
-                    <SelectItem key={goal} value={goal}>
-                      {goal}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Label>What's your main goal for this project?</Label>
+            <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select your main goal" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover z-[150]">
+                {goals.map((goal) => (
+                  <SelectItem key={goal} value={goal}>
+                    {goal}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
 
       case 4:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>What's your estimated budget range?</Label>
-              <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your budget range" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100]">
-                  {budgets.map((budget) => (
-                    <SelectItem key={budget} value={budget}>
-                      {budget}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Label>What's your estimated budget range?</Label>
+            <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select your budget range" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover z-[150]">
+                {budgets.map((budget) => (
+                  <SelectItem key={budget} value={budget}>
+                    {budget}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
 
       case 5:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>What's your ideal timeline?</Label>
-              <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your timeline" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100]">
-                  {timelines.map((timeline) => (
-                    <SelectItem key={timeline} value={timeline}>
-                      {timeline}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Label>What's your ideal timeline?</Label>
+            <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select your timeline" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover z-[150]">
+                {timelines.map((timeline) => (
+                  <SelectItem key={timeline} value={timeline}>
+                    {timeline}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
 
       case 6:
         return (
           <div className="space-y-4">
+            <Label>Do you already have any of these?</Label>
+            <p className="text-sm text-muted-foreground">Select all that apply</p>
             <div className="space-y-3">
-              <Label>Do you already have any of these?</Label>
-              <p className="text-sm text-muted-foreground">Select all that apply</p>
-              <div className="space-y-3">
-                {assets.map((asset) => (
-                  <div key={asset} className="flex items-center space-x-3">
-                    <Checkbox
-                      id={asset}
-                      checked={formData.existingAssets.includes(asset)}
-                      onCheckedChange={() => toggleAsset(asset)}
-                    />
-                    <Label htmlFor={asset} className="cursor-pointer font-normal">
-                      {asset}
-                    </Label>
-                  </div>
-                ))}
-              </div>
+              {assets.map((asset) => (
+                <div key={asset} className="flex items-center space-x-3">
+                  <Checkbox
+                    id={asset}
+                    checked={formData.existingAssets.includes(asset)}
+                    onCheckedChange={() => toggleAsset(asset)}
+                  />
+                  <Label htmlFor={asset} className="cursor-pointer font-normal">
+                    {asset}
+                  </Label>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -305,19 +292,17 @@ Website: ${formData.website || 'N/A'}
       case 7:
         return (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="description">Tell us a bit about your project</Label>
-              <p className="text-sm text-muted-foreground">
-                In a few sentences, tell us what you'd like to create or what problem you're solving.
-              </p>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Describe your project..."
-                className="min-h-[120px]"
-              />
-            </div>
+            <Label htmlFor="description">Tell us a bit about your project</Label>
+            <p className="text-sm text-muted-foreground">
+              In a few sentences, tell us what you'd like to create or what problem you're solving.
+            </p>
+            <Textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="Describe your project..."
+              className="min-h-[120px]"
+            />
           </div>
         );
 
