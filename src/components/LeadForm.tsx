@@ -183,7 +183,7 @@ Website: ${formData.website || 'N/A'}
                     key={type.value}
                     type="button"
                     variant={formData.projectType === type.value ? "default" : "outline"}
-                    className="w-full justify-start text-left h-auto py-4 pointer-events-auto cursor-pointer"
+                    className="w-full justify-start text-left h-auto py-4"
                     onClick={() => setFormData({ ...formData, projectType: type.value })}
                   >
                     {type.label}
@@ -200,12 +200,12 @@ Website: ${formData.website || 'N/A'}
             <div className="space-y-2">
               <Label>What stage are you in right now?</Label>
               <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
-                <SelectTrigger className="pointer-events-auto">
+                <SelectTrigger>
                   <SelectValue placeholder="Select your current stage" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100] pointer-events-auto">
+                <SelectContent className="bg-popover border border-border z-[100]">
                   {stages.map((stage) => (
-                    <SelectItem key={stage} value={stage} className="pointer-events-auto cursor-pointer">
+                    <SelectItem key={stage} value={stage}>
                       {stage}
                     </SelectItem>
                   ))}
@@ -221,12 +221,12 @@ Website: ${formData.website || 'N/A'}
             <div className="space-y-2">
               <Label>What's your main goal for this project?</Label>
               <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
-                <SelectTrigger className="pointer-events-auto">
+                <SelectTrigger>
                   <SelectValue placeholder="Select your main goal" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100] pointer-events-auto">
+                <SelectContent className="bg-popover border border-border z-[100]">
                   {goals.map((goal) => (
-                    <SelectItem key={goal} value={goal} className="pointer-events-auto cursor-pointer">
+                    <SelectItem key={goal} value={goal}>
                       {goal}
                     </SelectItem>
                   ))}
@@ -242,12 +242,12 @@ Website: ${formData.website || 'N/A'}
             <div className="space-y-2">
               <Label>What's your estimated budget range?</Label>
               <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-                <SelectTrigger className="pointer-events-auto">
+                <SelectTrigger>
                   <SelectValue placeholder="Select your budget range" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100] pointer-events-auto">
+                <SelectContent className="bg-popover border border-border z-[100]">
                   {budgets.map((budget) => (
-                    <SelectItem key={budget} value={budget} className="pointer-events-auto cursor-pointer">
+                    <SelectItem key={budget} value={budget}>
                       {budget}
                     </SelectItem>
                   ))}
@@ -263,12 +263,12 @@ Website: ${formData.website || 'N/A'}
             <div className="space-y-2">
               <Label>What's your ideal timeline?</Label>
               <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-                <SelectTrigger className="pointer-events-auto">
+                <SelectTrigger>
                   <SelectValue placeholder="Select your timeline" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border border-border z-[100] pointer-events-auto">
+                <SelectContent className="bg-popover border border-border z-[100]">
                   {timelines.map((timeline) => (
-                    <SelectItem key={timeline} value={timeline} className="pointer-events-auto cursor-pointer">
+                    <SelectItem key={timeline} value={timeline}>
                       {timeline}
                     </SelectItem>
                   ))}
@@ -286,14 +286,13 @@ Website: ${formData.website || 'N/A'}
               <p className="text-sm text-muted-foreground">Select all that apply</p>
               <div className="space-y-3">
                 {assets.map((asset) => (
-                  <div key={asset} className="flex items-center space-x-3 pointer-events-auto">
+                  <div key={asset} className="flex items-center space-x-3">
                     <Checkbox
                       id={asset}
                       checked={formData.existingAssets.includes(asset)}
                       onCheckedChange={() => toggleAsset(asset)}
-                      className="pointer-events-auto cursor-pointer"
                     />
-                    <Label htmlFor={asset} className="cursor-pointer font-normal pointer-events-auto">
+                    <Label htmlFor={asset} className="cursor-pointer font-normal">
                       {asset}
                     </Label>
                   </div>
@@ -385,7 +384,7 @@ Website: ${formData.website || 'N/A'}
   };
 
   return (
-    <Card className="package-card w-full pointer-events-auto">
+    <Card className="package-card w-full">
       {showTitle && (
         <CardHeader>
           <CardTitle className="text-2xl">Start Your Project</CardTitle>
@@ -393,16 +392,16 @@ Website: ${formData.website || 'N/A'}
         </CardHeader>
       )}
       <CardContent className={showTitle ? "" : "pt-6"}>
-        <form onSubmit={handleSubmit} className="space-y-6 pointer-events-auto">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {renderStep()}
 
-          <div className="flex gap-3 pt-4 pointer-events-auto">
+          <div className="flex gap-3 pt-4">
             {currentStep > 1 && (
               <Button
                 type="button"
                 variant="outline"
                 onClick={handleBack}
-                className="flex-1 pointer-events-auto cursor-pointer"
+                className="flex-1"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
@@ -414,7 +413,7 @@ Website: ${formData.website || 'N/A'}
                 type="button"
                 onClick={handleNext}
                 disabled={!isStepValid()}
-                className="flex-1 btn-hero pointer-events-auto cursor-pointer"
+                className="flex-1 btn-hero"
               >
                 Next
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -423,7 +422,7 @@ Website: ${formData.website || 'N/A'}
               <Button
                 type="submit"
                 disabled={isSubmitting || !isStepValid()}
-                className="flex-1 btn-hero pointer-events-auto cursor-pointer"
+                className="flex-1 btn-hero"
               >
                 {isSubmitting ? "Sending..." : "Submit"}
                 <Send className="ml-2 w-4 h-4" />
