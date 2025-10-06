@@ -25,9 +25,10 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     projectType: serviceType || "",
     stage: "",
     goal: "",
-    audience: "",
     budget: "",
     timeline: "",
+    audience: "",
+    platform: "",
     existingAssets: [] as string[],
     description: "",
     name: "",
@@ -39,16 +40,29 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
 
   const totalSteps = 9;
 
-  // === QUESTION DATA ===
   const projectTypes = [
     { value: "business-website", label: "A business website 🌐" },
     { value: "web-app", label: "A web app 💻" },
     { value: "mobile-app", label: "A mobile app 📱" },
     { value: "chatbot", label: "A chatbot or AI assistant 🤖" },
-    { value: "branding", label: "Branding or rebrand 🎨" },
-    { value: "digital-marketing", label: "Marketing or social media 📈" },
     { value: "prototype", label: "A prototype or MVP 🚀" },
     { value: "not-sure", label: "Not sure yet — need guidance 💬" },
+  ];
+
+  const budgets = [
+    "Under R5,000",
+    "R5,000 – R15,000",
+    "R15,000 – R30,000",
+    "R30,000 – R50,000",
+    "Above R50,000",
+    "Not sure yet — I'd like a recommendation",
+  ];
+
+  const timelines = [
+    "ASAP (within 1–2 weeks)",
+    "2–4 weeks",
+    "1–2 months",
+    "Flexible — depends on your schedule",
   ];
 
   const stages = [
@@ -59,37 +73,19 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     "Ongoing support or maintenance",
   ];
 
-  const goals = [
-    "Launch a new product/startup",
-    "Improve brand presence or UX",
-    "Get more leads or conversions",
-    "Automate business processes",
-    "Showcase my portfolio or brand",
+  const audiences = [
+    "General public / customers",
+    "Business clients or partners",
+    "Internal company users",
+    "Community / learners / youth",
     "Other",
   ];
 
-  const audiences = [
-    "Small business owners",
-    "Corporate clients",
-    "General public",
-    "Niche / industry-specific users",
-    "Internal team use",
-  ];
-
-  const budgets = [
-    "Under R5,000",
-    "R5,000 – R15,000",
-    "R15,000 – R30,000",
-    "R30,000 – R50,000",
-    "Above R50,000",
-    "Not sure yet — need advice",
-  ];
-
-  const timelines = [
-    "ASAP (within 1–2 weeks)",
-    "2–4 weeks",
-    "1–2 months",
-    "Flexible — depends on your schedule",
+  const platforms = [
+    "Web only",
+    "Mobile only (Android/iOS)",
+    "Both web and mobile",
+    "Not sure yet",
   ];
 
   const assets = [
@@ -98,23 +94,22 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     "Content or copy",
     "UI/UX design",
     "Prototype or wireframes",
-    "None yet — I'll need help with all",
+    "None yet — I’ll need help with all",
   ];
 
-  // === FORM LOGIC ===
   const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+    if (currentStep < totalSteps) setCurrentStep((s) => s + 1);
   };
 
   const handleBack = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
+    if (currentStep > 1) setCurrentStep((s) => s - 1);
   };
 
   const toggleAsset = (asset: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       existingAssets: prev.existingAssets.includes(asset)
-        ? prev.existingAssets.filter(a => a !== asset)
+        ? prev.existingAssets.filter((a) => a !== asset)
         : [...prev.existingAssets, asset],
     }));
   };
@@ -131,9 +126,10 @@ NEW PROJECT INQUIRY
 Project Type: ${formData.projectType}
 Current Stage: ${formData.stage}
 Main Goal: ${formData.goal}
-Target Audience: ${formData.audience}
 Budget Range: ${formData.budget}
 Timeline: ${formData.timeline}
+Audience: ${formData.audience}
+Platform: ${formData.platform}
 
 === EXISTING ASSETS ===
 ${formData.existingAssets.join(", ") || "None"}
@@ -146,15 +142,15 @@ Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Company: ${formData.company || "N/A"}
-Website / Instagram: ${formData.website || "N/A"}
-      `.trim();
+Website: ${formData.website || "N/A"}
+`.trim();
 
       const mailtoLink = `mailto:admin@brandhype.co.za?subject=New Project Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
 
       navigate("/thank-you");
       onSuccess?.();
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong. Please try WhatsApp or email us directly.",
@@ -165,27 +161,11 @@ Website / Instagram: ${formData.website || "N/A"}
     }
   };
 
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1: return !!formData.projectType;
-      case 2: return !!formData.stage;
-      case 3: return !!formData.goal;
-      case 4: return !!formData.audience;
-      case 5: return !!formData.budget;
-      case 6: return !!formData.timeline;
-      case 7: return formData.existingAssets.length > 0;
-      case 8: return formData.description.trim().length > 10;
-      case 9: return !!formData.name && !!formData.email && !!formData.phone;
-      default: return true;
-    }
-  };
-
-  // === RENDER STEPS ===
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-4">
+          <div className="space-y-4 pointer-events-auto">
             <Label>What would you like to build?</Label>
             <div className="grid gap-3">
               {projectTypes.map((type) => (
@@ -205,16 +185,12 @@ Website / Instagram: ${formData.website || "N/A"}
 
       case 2:
         return (
-          <div className="space-y-4">
+          <div className="space-y-4 pointer-events-auto">
             <Label>What stage are you in right now?</Label>
-            <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your current stage" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[9999]">
-                {stages.map((stage) => (
-                  <SelectItem key={stage} value={stage}>{stage}</SelectItem>
-                ))}
+            <Select value={formData.stage} onValueChange={(v) => setFormData({ ...formData, stage: v })}>
+              <SelectTrigger><SelectValue placeholder="Select your current stage" /></SelectTrigger>
+              <SelectContent className="z-[200] pointer-events-auto">
+                {stages.map((stage) => <SelectItem key={stage} value={stage}>{stage}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -222,29 +198,24 @@ Website / Instagram: ${formData.website || "N/A"}
 
       case 3:
         return (
-          <div className="space-y-4">
-            <Label>What's your main goal for this project?</Label>
-            <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your main goal" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[9999]">
-                {goals.map((goal) => <SelectItem key={goal} value={goal}>{goal}</SelectItem>)}
-              </SelectContent>
-            </Select>
+          <div className="space-y-4 pointer-events-auto">
+            <Label>What’s your main goal?</Label>
+            <Textarea
+              placeholder="E.g. I want to launch an app for my tutoring business"
+              value={formData.goal}
+              onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+            />
           </div>
         );
 
       case 4:
         return (
-          <div className="space-y-4">
-            <Label>Who is this project for?</Label>
-            <Select value={formData.audience} onValueChange={(value) => setFormData({ ...formData, audience: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your audience" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[9999]">
-                {audiences.map((a) => <SelectItem key={a} value={a}>{a}</SelectItem>)}
+          <div className="space-y-4 pointer-events-auto">
+            <Label>What's your estimated budget range?</Label>
+            <Select value={formData.budget} onValueChange={(v) => setFormData({ ...formData, budget: v })}>
+              <SelectTrigger><SelectValue placeholder="Select budget range" /></SelectTrigger>
+              <SelectContent className="z-[200] pointer-events-auto">
+                {budgets.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -252,14 +223,12 @@ Website / Instagram: ${formData.website || "N/A"}
 
       case 5:
         return (
-          <div className="space-y-4">
-            <Label>What's your estimated budget range?</Label>
-            <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your budget range" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[9999]">
-                {budgets.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+          <div className="space-y-4 pointer-events-auto">
+            <Label>What's your ideal timeline?</Label>
+            <Select value={formData.timeline} onValueChange={(v) => setFormData({ ...formData, timeline: v })}>
+              <SelectTrigger><SelectValue placeholder="Select timeline" /></SelectTrigger>
+              <SelectContent className="z-[200] pointer-events-auto">
+                {timelines.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -267,14 +236,12 @@ Website / Instagram: ${formData.website || "N/A"}
 
       case 6:
         return (
-          <div className="space-y-4">
-            <Label>What's your ideal timeline?</Label>
-            <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your timeline" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-[9999]">
-                {timelines.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+          <div className="space-y-4 pointer-events-auto">
+            <Label>Who’s your main audience?</Label>
+            <Select value={formData.audience} onValueChange={(v) => setFormData({ ...formData, audience: v })}>
+              <SelectTrigger><SelectValue placeholder="Select audience type" /></SelectTrigger>
+              <SelectContent className="z-[200] pointer-events-auto">
+                {audiences.map((a) => <SelectItem key={a} value={a}>{a}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -282,9 +249,21 @@ Website / Instagram: ${formData.website || "N/A"}
 
       case 7:
         return (
-          <div className="space-y-4">
+          <div className="space-y-4 pointer-events-auto">
+            <Label>Which platforms should it run on?</Label>
+            <Select value={formData.platform} onValueChange={(v) => setFormData({ ...formData, platform: v })}>
+              <SelectTrigger><SelectValue placeholder="Select platform" /></SelectTrigger>
+              <SelectContent className="z-[200] pointer-events-auto">
+                {platforms.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+        );
+
+      case 8:
+        return (
+          <div className="space-y-4 pointer-events-auto">
             <Label>Do you already have any of these?</Label>
-            <p className="text-sm text-muted-foreground">Select all that apply</p>
             <div className="space-y-3">
               {assets.map((asset) => (
                 <div key={asset} className="flex items-center space-x-3">
@@ -293,104 +272,64 @@ Website / Instagram: ${formData.website || "N/A"}
                     checked={formData.existingAssets.includes(asset)}
                     onCheckedChange={() => toggleAsset(asset)}
                   />
-                  <Label htmlFor={asset} className="cursor-pointer font-normal">
-                    {asset}
-                  </Label>
+                  <Label htmlFor={asset} className="cursor-pointer">{asset}</Label>
                 </div>
               ))}
             </div>
           </div>
         );
 
-      case 8:
-        return (
-          <div className="space-y-4">
-            <Label htmlFor="description">Tell us a bit about your project</Label>
-            <Textarea
-              id="description"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Briefly describe what you’d like to achieve..."
-              className="min-h-[120px]"
-            />
-          </div>
-        );
-
       case 9:
         return (
-          <div className="space-y-4">
-            <Label htmlFor="name">Full Name *</Label>
-            <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" />
-
-            <Label htmlFor="email">Email *</Label>
-            <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@company.com" />
-
-            <Label htmlFor="phone">WhatsApp Number *</Label>
-            <Input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+27 81 234 5678" />
-
-            <Label htmlFor="company">Company / Brand (Optional)</Label>
-            <Input id="company" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} placeholder="Your company" />
-
-            <Label htmlFor="website">Instagram / Website (Optional)</Label>
-            <Input id="website" value={formData.website} onChange={(e) => setFormData({ ...formData, website: e.target.value })} placeholder="https://" />
+          <div className="space-y-4 pointer-events-auto">
+            <Label>Tell us about your project</Label>
+            <Textarea
+              placeholder="Briefly describe what you’d like to achieve..."
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            />
+            <div className="space-y-3 pt-2">
+              <Input placeholder="Full Name *" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+              <Input placeholder="Email *" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+              <Input placeholder="WhatsApp Number *" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
+              <Input placeholder="Company / Brand (optional)" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} />
+              <Input placeholder="Instagram / Website (optional)" value={formData.website} onChange={(e) => setFormData({ ...formData, website: e.target.value })} />
+            </div>
           </div>
         );
-
-      default:
-        return null;
     }
   };
 
-  // === RENDER ===
   return (
-    <div className="relative z-[999]">
-      <Card className="package-card w-full">
-        {showTitle && (
-          <CardHeader>
-            <CardTitle className="text-2xl">Start Your Project</CardTitle>
-            <p className="text-muted-foreground">Step {currentStep} of {totalSteps}</p>
-          </CardHeader>
-        )}
-
-        <CardContent className={showTitle ? "" : "pt-6"}>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {renderStep()}
-
-            <div className="flex gap-3 pt-4">
-              {currentStep > 1 && (
-                <Button type="button" variant="outline" onClick={handleBack} className="flex-1">
-                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
-                </Button>
-              )}
-              {currentStep < totalSteps ? (
-                <Button type="button" onClick={handleNext} disabled={!isStepValid()} className="flex-1 btn-hero">
-                  Next <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              ) : (
-                <Button type="submit" disabled={isSubmitting || !isStepValid()} className="flex-1 btn-hero">
-                  {isSubmitting ? "Sending..." : "Submit"} <Send className="ml-2 w-4 h-4" />
-                </Button>
-              )}
-            </div>
-
-            <div className="flex gap-1 justify-center pt-2">
-              {Array.from({ length: totalSteps }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 rounded-full transition-all ${
-                    i + 1 === currentStep
-                      ? "w-8 bg-primary"
-                      : i + 1 < currentStep
-                      ? "w-2 bg-primary/50"
-                      : "w-2 bg-muted"
-                  }`}
-                />
-              ))}
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="package-card w-full pointer-events-auto relative z-[100]">
+      {showTitle && (
+        <CardHeader>
+          <CardTitle className="text-2xl">Start Your Project</CardTitle>
+          <p className="text-muted-foreground">Step {currentStep} of {totalSteps}</p>
+        </CardHeader>
+      )}
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6 pointer-events-auto">
+          {renderStep()}
+          <div className="flex gap-3 pt-4">
+            {currentStep > 1 && (
+              <Button type="button" variant="outline" onClick={handleBack} className="flex-1">
+                <ArrowLeft className="w-4 h-4 mr-2" /> Back
+              </Button>
+            )}
+            {currentStep < totalSteps ? (
+              <Button type="button" onClick={handleNext} className="flex-1 btn-hero">
+                Next <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button type="submit" className="flex-1 btn-hero" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Submit"} <Send className="ml-2 w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 
