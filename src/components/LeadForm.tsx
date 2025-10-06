@@ -2,13 +2,12 @@ import { useState } from "react";
 import { Send, ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import InputField from "./InputField"; // ensure your InputField component exists
 
 interface LeadFormProps {
   onSuccess?: () => void;
@@ -38,14 +37,12 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
 
   const totalSteps = 8;
 
-  // ===== PROJECT FORM OPTIONS =====
   const projectTypes = [
     { value: "business-website", label: "A business website 🌐" },
-    { value: "e-commerce", label: "An e-commerce store 🛒" },
     { value: "web-app", label: "A web app 💻" },
     { value: "mobile-app", label: "A mobile app 📱" },
     { value: "chatbot", label: "A chatbot or AI assistant 🤖" },
-    { value: "prototype", label: "Prototype / No-code MVP 🚀" },
+    { value: "prototype", label: "A prototype or MVP 🚀" },
     { value: "not-sure", label: "Not sure yet — need guidance 💬" }
   ];
 
@@ -91,13 +88,18 @@ const LeadForm = ({ onSuccess, showTitle = true, serviceType }: LeadFormProps) =
     "None yet — I'll need help with all"
   ];
 
-  // ===== FORM HANDLERS =====
   const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
+    }
   };
+
   const handleBack = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
   };
+
   const toggleAsset = (asset: string) => {
     setFormData(prev => ({
       ...prev,
@@ -123,7 +125,7 @@ Budget Range: ${formData.budget}
 Timeline: ${formData.timeline}
 
 === EXISTING ASSETS ===
-${formData.existingAssets.join(", ") || "None"}
+${formData.existingAssets.join(', ') || 'None'}
 
 === PROJECT DESCRIPTION ===
 ${formData.description}
@@ -132,14 +134,14 @@ ${formData.description}
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Company: ${formData.company || "N/A"}
-Website: ${formData.website || "N/A"}
+Company: ${formData.company || 'N/A'}
+Website: ${formData.website || 'N/A'}
       `.trim();
 
       const mailtoLink = `mailto:admin@brandhype.co.za?subject=New Project Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
 
-      navigate("/thank-you");
+      navigate('/thank-you');
       onSuccess?.();
     } catch (error) {
       toast({
@@ -166,131 +168,245 @@ Website: ${formData.website || "N/A"}
     }
   };
 
-  // ===== RENDER STEP CONTENT =====
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <div className="space-y-4">
-            <Label>What would you like to build?</Label>
+            <label className="block text-sm font-medium">What would you like to build?</label>
             <div className="grid gap-3">
-              {projectTypes.map(type => (
-                <Button
+              {projectTypes.map((type) => (
+                <button
                   key={type.value}
                   type="button"
-                  variant={formData.projectType === type.value ? "default" : "outline"}
-                  className="w-full justify-start text-left py-4"
+                  className={`w-full justify-start text-left py-4 rounded-lg border ${formData.projectType === type.value ? 'bg-primary text-white' : 'border-gray-300'}`}
                   onClick={() => setFormData({ ...formData, projectType: type.value })}
                 >
                   {type.label}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
         );
+
       case 2:
         return (
           <div className="space-y-4">
-            <Label>What stage are you in right now?</Label>
-            <Select
-              value={formData.stage}
-              onValueChange={(value) => setFormData({ ...formData, stage: value })}
-            >
+            <label>What stage are you in right now?</label>
+            <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select your current stage" />
               </SelectTrigger>
-              <SelectContent>
-                {stages.map(stage => <SelectItem key={stage} value={stage}>{stage}</SelectItem>)}
+              <SelectContent className="bg-popover z-[150]">
+                {stages.map((stage) => (
+                  <SelectItem key={stage} value={stage}>{stage}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
         );
+
       case 3:
         return (
           <div className="space-y-4">
-            <Label>What's your main goal for this project?</Label>
-            <Select
-              value={formData.goal}
-              onValueChange={(value) => setFormData({ ...formData, goal: value })}
-            >
+            <label>What's your main goal for this project?</label>
+            <Select value={formData.goal} onValueChange={(value) => setFormData({ ...formData, goal: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select your main goal" />
               </SelectTrigger>
-              <SelectContent>
-                {goals.map(goal => <SelectItem key={goal} value={goal}>{goal}</SelectItem>)}
+              <SelectContent className="bg-popover z-[150]">
+                {goals.map((goal) => (
+                  <SelectItem key={goal} value={goal}>{goal}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
         );
+
       case 4:
         return (
           <div className="space-y-4">
-            <Label>What's your estimated budget range?</Label>
-            <Select
-              value={formData.budget}
-              onValueChange={(value) => setFormData({ ...formData, budget: value })}
-            >
+            <label>What's your estimated budget range?</label>
+            <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select your budget range" />
               </SelectTrigger>
-              <SelectContent>
-                {budgets.map(budget => <SelectItem key={budget} value={budget}>{budget}</SelectItem>)}
+              <SelectContent className="bg-popover z-[150]">
+                {budgets.map((budget) => (
+                  <SelectItem key={budget} value={budget}>{budget}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
         );
+
       case 5:
         return (
           <div className="space-y-4">
-            <Label>What's your ideal timeline?</Label>
-            <Select
-              value={formData.timeline}
-              onValueChange={(value) => setFormData({ ...formData, timeline: value })}
-            >
+            <label>What's your ideal timeline?</label>
+            <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select your timeline" />
               </SelectTrigger>
-              <SelectContent>
-                {timelines.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              <SelectContent className="bg-popover z-[150]">
+                {timelines.map((timeline) => (
+                  <SelectItem key={timeline} value={timeline}>{timeline}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
         );
+
       case 6:
         return (
           <div className="space-y-4">
-            <Label>Do you already have any of these?</Label>
+            <label>Do you already have any of these?</label>
             <p className="text-sm text-muted-foreground">Select all that apply</p>
             <div className="space-y-3">
-              {assets.map(asset => (
+              {assets.map((asset) => (
                 <div key={asset} className="flex items-center space-x-3">
                   <Checkbox
                     id={asset}
                     checked={formData.existingAssets.includes(asset)}
                     onCheckedChange={() => toggleAsset(asset)}
                   />
-                  <Label htmlFor={asset} className="cursor-pointer font-normal">{asset}</Label>
+                  <label htmlFor={asset} className="cursor-pointer font-normal">{asset}</label>
                 </div>
               ))}
             </div>
           </div>
         );
+
       case 7:
         return (
           <div className="space-y-4">
-            <Label htmlFor="description">Tell us about your project</Label>
+            <label htmlFor="description">Tell us a bit about your project</label>
+            <p className="text-sm text-muted-foreground">
+              In a few sentences, tell us what you'd like to create or what problem you're solving.
+            </p>
             <Textarea
               id="description"
               value={formData.description}
-              onChange={e => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Describe your project..."
               className="min-h-[120px]"
             />
           </div>
         );
+
       case 8:
         return (
           <div className="space-y-4">
-            <InputField id="name" label="Full Name *" value={formData.name} onChange={val => setFormData({...formData, name: val})} placeholder="John Doe" />
-            <InputField id="email" label="Email *" type="email" value={formData.email} onChange={val => setFormData({...formData, email: val})} placeholder="john@company.com" />
-            <InputField id="phone" label="WhatsApp Number *" type="tel" value={formData.phon*
+            <InputField 
+              id="name" 
+              label="Full Name *" 
+              value={formData.name} 
+              onChange={val => setFormData({...formData, name: val})} 
+              placeholder="John Doe" 
+            />
+            <InputField 
+              id="email" 
+              label="Email *" 
+              type="email" 
+              value={formData.email} 
+              onChange={val => setFormData({...formData, email: val})} 
+              placeholder="john@company.com" 
+            />
+            <InputField 
+              id="phone" 
+              label="WhatsApp Number *" 
+              type="tel" 
+              value={formData.phone} 
+              onChange={val => setFormData({...formData, phone: val})} 
+              placeholder="+27 81 234 5678" 
+            />
+            <InputField 
+              id="company" 
+              label="Company Name or Brand (Optional)" 
+              value={formData.company} 
+              onChange={val => setFormData({...formData, company: val})} 
+              placeholder="Your company" 
+            />
+            <InputField 
+              id="website" 
+              label="Instagram/Website Link (Optional)" 
+              value={formData.website} 
+              onChange={val => setFormData({...formData, website: val})} 
+              placeholder="https://" 
+            />
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <Card className="package-card w-full">
+      {showTitle && (
+        <CardHeader>
+          <CardTitle className="text-2xl">Start Your Project</CardTitle>
+          <p className="text-muted-foreground">Step {currentStep} of {totalSteps}</p>
+        </CardHeader>
+      )}
+      <CardContent className={showTitle ? "" : "pt-6"}>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {renderStep()}
+
+          <div className="flex gap-3 pt-4">
+            {currentStep > 1 && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+                className="flex-1"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            )}
+
+            {currentStep < totalSteps ? (
+              <Button
+                type="button"
+                onClick={handleNext}
+                disabled={!isStepValid()}
+                className="flex-1 btn-hero"
+              >
+                Next
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isStepValid()}
+                className="flex-1 btn-hero"
+              >
+                {isSubmitting ? "Sending..." : "Submit"}
+                <Send className="ml-2 w-4 h-4" />
+              </Button>
+            )}
+          </div>
+
+          <div className="flex gap-1 justify-center">
+            {Array.from({ length: totalSteps }).map((_, i) => (
+              <div
+                key={i}
+                className={`h-2 rounded-full transition-all ${
+                  i + 1 === currentStep
+                    ? "w-8 bg-primary"
+                    : i + 1 < currentStep
+                    ? "w-2 bg-primary/50"
+                    : "w-2 bg-muted"
+                }`}
+              />
+            ))}
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default LeadForm;
