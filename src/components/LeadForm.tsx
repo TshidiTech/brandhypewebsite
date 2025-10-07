@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 interface LeadFormProps {
   onSuccess?: () => void;
   showTitle?: boolean;
+  serviceType?: string;
 }
 
 const LeadForm = ({ onSuccess, showTitle = true }: LeadFormProps) => {
@@ -114,33 +115,41 @@ const LeadForm = ({ onSuccess, showTitle = true }: LeadFormProps) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     try {
-      const emailBody = `
-New project inquiry:
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const { data, error } = await supabase.functions.invoke('send-lead-email', {
+        body: {
+          projectType: formData.projectType,
+          stage: formData.stage,
+          goal: formData.goal,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          assets: formData.existingAssets,
+          description: formData.description,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+        }
+      });
 
-Project Type: ${formData.projectType}
-Stage: ${formData.stage}
-Goal: ${formData.goal}
-Budget: ${formData.budget}
-Timeline: ${formData.timeline}
-Existing Assets: ${formData.existingAssets.join(", ") || "None"}
-Description: ${formData.description}
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Company: ${formData.company || "N/A"}
-Website: ${formData.website || "N/A"}
-      `.trim();
+      if (error) throw error;
 
-      const mailto = `mailto:admin@brandhype.co.za?subject=New Project Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailto;
+      console.log("Lead email sent successfully:", data);
+      toast({ title: "Success!", description: "We'll be in touch soon!" });
       navigate("/thank-you");
       onSuccess?.();
-    } catch {
-      toast({ title: "Error", description: "Something went wrong.", variant: "destructive" });
+    } catch (error: any) {
+      console.error("Error submitting lead form:", error);
+      toast({ 
+        title: "Error", 
+        description: "Failed to submit. Please try again or email us directly at admin@brandhype.co.za", 
+        variant: "destructive" 
+      });
     } finally {
       setIsSubmitting(false);
     }
