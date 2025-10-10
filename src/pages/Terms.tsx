@@ -30,7 +30,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-2xl font-bold text-accent mb-4">1. Agreement to Terms</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  By accessing and using BrandHype's services, you accept and agree to be bound by the terms and provision of this agreement. 
+                  By accessing and using TshidiTech's services, you accept and agree to be bound by the terms and provision of this agreement. 
                   If you do not agree to abide by the above, please do not use this service.
                 </p>
               </div>
@@ -38,7 +38,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-2xl font-bold text-accent mb-4">2. Services</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  BrandHype provides web development services including but not limited to:
+                  TshidiTech provides web development services including but not limited to:
                 </p>
                 <ul className="list-disc ml-6 text-muted-foreground space-y-2">
                   <li>Website design and development</li>
@@ -67,7 +67,7 @@ const Terms = () => {
                   <p>We generally do not offer refunds once work has commenced. However, refunds may be considered in the following circumstances:</p>
                   <ul className="list-disc ml-6 space-y-2">
                     <li>Non-delivery within the agreed timeline without valid justification</li>
-                    <li>Major scope changes initiated by BrandHype</li>
+                    <li>Major scope changes initiated by TshidiTech</li>
                     <li>Technical impossibility of stated requirements (determined after thorough assessment)</li>
                     <li>Failure to meet agreed specifications due to our oversight</li>
                   </ul>
@@ -87,7 +87,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-2xl font-bold text-accent mb-4">6. Intellectual Property</h2>
                 <div className="space-y-4 text-muted-foreground">
-                  <p><strong>Ownership:</strong> Upon full payment, clients own the final delivered work. BrandHype retains the right to showcase completed projects in our portfolio.</p>
+                  <p><strong>Ownership:</strong> Upon full payment, clients own the final delivered work. TshidiTech retains the right to showcase completed projects in our portfolio.</p>
                   <p><strong>Third-Party Assets:</strong> Any third-party assets (fonts, images, plugins) may require separate licensing by the client.</p>
                   <p><strong>Code Ownership:</strong> Custom code developed specifically for your project becomes your property upon full payment.</p>
                 </div>
@@ -105,7 +105,7 @@ const Terms = () => {
               <div>
                 <h2 className="text-2xl font-bold text-accent mb-4">8. Limitation of Liability</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  BrandHype's liability is limited to the amount paid for services. We are not liable for indirect, incidental, or consequential damages. 
+                  TshidiTech's liability is limited to the amount paid for services. We are not liable for indirect, incidental, or consequential damages. 
                   While we strive for excellence, we cannot guarantee specific business outcomes from our services.
                 </p>
               </div>
@@ -114,7 +114,7 @@ const Terms = () => {
                 <h2 className="text-2xl font-bold text-accent mb-4">9. Termination</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Either party may terminate services with written notice. Upon termination, client pays for work completed to date. 
-                  BrandHype reserves the right to terminate services for non-payment or breach of terms.
+                  TshidiTech reserves the right to terminate services for non-payment or breach of terms.
                 </p>
               </div>
 
@@ -122,7 +122,7 @@ const Terms = () => {
                 <h2 className="text-2xl font-bold text-accent mb-4">10. Contact Information</h2>
                 <div className="text-muted-foreground">
                   <p>For questions about these terms:</p>
-                  <p><strong>Email:</strong> admin@brandhype.co.za</p>
+                  <p><strong>Email:</strong> admin@tshiditech.co.za</p>
                   <p><strong>Phone:</strong> +27 81 661 7013</p>
                 </div>
               </div>

@@ -364,7 +364,7 @@ const Packages = () => {
                     </Button>
                     <div className="flex space-x-2">
                       <Button variant="outline" className="flex-1" asChild>
-                        <a href="mailto:admin@brandhype.co.za?subject=Enquiry about {pkg.name}">
+                        <a href="mailto:admin@tshiditech.co.za?subject=Enquiry about {pkg.name}">
                           <Mail className="w-4 h-4 mr-2" />
                           Email
                         </a>

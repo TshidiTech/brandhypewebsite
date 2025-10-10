@@ -43,7 +43,7 @@ const About = () => {
             <span className="gradient-text block">Digital Reality</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            BrandHype is a South African web development agency specializing in fast, 
+            TshidiTech is a South African web development agency specializing in fast, 
             results-driven digital solutions for growing businesses.
           </p>
           <Button className="btn-hero" asChild>
@@ -77,7 +77,7 @@ const About = () => {
               <h2 className="text-3xl font-bold mb-8 text-center">Our Story</h2>
               <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p>
-                  BrandHype was founded with a simple mission: make professional web development 
+                  TshidiTech was founded with a simple mission: make professional web development 
                   accessible to South African businesses of all sizes. We saw too many great 
                   businesses struggling with outdated websites or being priced out by traditional agencies.
                 </p>

@@ -10,18 +10,18 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="text-2xl font-bold mb-4 block">
-              Brand<span className="text-accent">Hype</span>
+              Tshidi<span className="text-accent">Tech</span>
             </Link>
             <p className="text-muted-foreground mb-4 max-w-md">
               South African web development agency delivering fast, results-driven digital solutions for growing businesses.
             </p>
             <div className="flex space-x-4">
               <a 
-                href="mailto:admin@brandhype.co.za" 
+                href="mailto:admin@tshiditech.co.za" 
                 className="flex items-center text-sm text-muted-foreground hover:text-accent transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                admin@brandhype.co.za
+                admin@tshiditech.co.za
               </a>
               <a 
                 href="tel:+27816617013" 
@@ -71,7 +71,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
           <div className="mb-4 md:mb-0">
-            <p>&copy; {new Date().getFullYear()} BrandHype. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} TshidiTech. All rights reserved.</p>
           </div>
           <div className="flex space-x-4">
             <Link to="/terms" className="hover:text-accent transition-colors">Terms & Conditions</Link>

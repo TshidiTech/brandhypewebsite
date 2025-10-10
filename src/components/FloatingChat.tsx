@@ -22,7 +22,7 @@ const FloatingChat = () => {
     },
     {
       label: "Email Us",
-      href: "mailto:admin@brandhype.co.za",
+      href: "mailto:admin@tshiditech.co.za",
       icon: Mail,
       action: "external"
     }

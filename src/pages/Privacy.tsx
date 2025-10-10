@@ -113,7 +113,7 @@ const Privacy = () => {
                     <li>Opt-out of marketing communications</li>
                     <li>Request data portability where applicable</li>
                   </ul>
-                  <p>To exercise these rights, contact us at admin@brandhype.co.za</p>
+                  <p>To exercise these rights, contact us at admin@tshiditech.co.za</p>
                 </div>
               </div>
 
@@ -154,7 +154,7 @@ const Privacy = () => {
                 <h2 className="text-2xl font-bold text-accent mb-4">11. Contact Us</h2>
                 <div className="text-muted-foreground">
                   <p>For questions about this privacy policy:</p>
-                  <p><strong>Email:</strong> admin@brandhype.co.za</p>
+                  <p><strong>Email:</strong> admin@tshiditech.co.za</p>
                   <p><strong>Phone:</strong> +27 81 661 7013</p>
                 </div>
               </div>

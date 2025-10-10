@@ -147,7 +147,7 @@ const LeadForm = ({ onSuccess, showTitle = true }: LeadFormProps) => {
       console.error("Error submitting lead form:", error);
       toast({ 
         title: "Error", 
-        description: "Failed to submit. Please try again or email us directly at admin@brandhype.co.za", 
+        description: "Failed to submit. Please try again or email us directly at admin@tshiditech.co.za", 
         variant: "destructive" 
       });
     } finally {

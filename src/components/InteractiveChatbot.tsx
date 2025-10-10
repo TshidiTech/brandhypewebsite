@@ -60,7 +60,7 @@ const InteractiveChatbot = () => {
     }
     
     if (message.includes('contact') || message.includes('get in touch')) {
-      return "📞 **Contact Us:**\n\n• Email: admin@brandhype.co.za\n• WhatsApp: +27 81 661 7013\n• Hours: Mon-Fri 9AM-5PM (CAT)\n\nReady to start? Use our contact buttons below!";
+      return "📞 **Contact Us:**\n\n• Email: admin@tshiditech.co.za\n• WhatsApp: +27 81 661 7013\n• Hours: Mon-Fri 9AM-5PM (CAT)\n\nReady to start? Use our contact buttons below!";
     }
     
     if (message.includes('website') || message.includes('web development')) {
@@ -76,7 +76,7 @@ const InteractiveChatbot = () => {
     }
     
     // Default/greeting
-    return "👋 Hi! I'm your BrandHype assistant. I can help with:\n\n• Pricing info\n• Project timelines\n• Services we offer\n• Contact information\n\nWhat would you like to know?";
+    return "👋 Hi! I'm your TshidiTech assistant. I can help with:\n\n• Pricing info\n• Project timelines\n• Services we offer\n• Contact information\n\nWhat would you like to know?";
   };
 
   const handleSendMessage = (messageToSend: string) => {
@@ -120,7 +120,7 @@ const InteractiveChatbot = () => {
           <CardHeader className="flex flex-row items-center justify-between p-3 sm:p-4 border-b bg-card/95 backdrop-blur-sm">
             <div className="flex items-center space-x-2">
               <Bot className="w-5 h-5 text-accent" />
-              <h3 className="font-semibold text-sm sm:text-base">BrandHype Assistant</h3>
+              <h3 className="font-semibold text-sm sm:text-base">TshidiTech Assistant</h3>
             </div>
             <Button
               variant="ghost"
@@ -180,7 +180,7 @@ const InteractiveChatbot = () => {
                   </a>
                 </Button>
                 <Button variant="ghost" size="sm" asChild className="h-8 text-xs flex-1">
-                  <a href="mailto:admin@brandhype.co.za" className="flex items-center justify-center">
+                  <a href="mailto:admin@tshiditech.co.za" className="flex items-center justify-center">
                     <Mail className="w-3 h-3 mr-1" />
                     Email
                   </a>

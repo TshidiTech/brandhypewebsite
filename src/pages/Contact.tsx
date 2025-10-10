@@ -99,7 +99,7 @@ Additional Details: ${formData.message}
       `.trim();
 
       // Create mailto link for now
-      const mailtoLink = `mailto:admin@brandhype.co.za?subject=New Quote Request from ${formData.name}&body=${encodeURIComponent(emailBody)}`;
+      const mailtoLink = `mailto:admin@tshiditech.co.za?subject=New Quote Request from ${formData.name}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
 
       toast({
@@ -341,10 +341,10 @@ Additional Details: ${formData.message}
                   <div>
                     <p className="font-medium">Email</p>
                     <a 
-                      href="mailto:admin@brandhype.co.za" 
+                      href="mailto:admin@tshiditech.co.za" 
                       className="text-accent hover:underline"
                     >
-                      admin@brandhype.co.za
+                      admin@tshiditech.co.za
                     </a>
                   </div>
                 </div>
@@ -387,7 +387,7 @@ Additional Details: ${formData.message}
                     </a>
                   </Button>
                   <Button variant="outline" className="w-full btn-outline-hero" asChild>
-                    <a href="mailto:admin@brandhype.co.za">
+                    <a href="mailto:admin@tshiditech.co.za">
                       Send Email
                     </a>
                   </Button>
