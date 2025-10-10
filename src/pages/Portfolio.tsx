@@ -5,6 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import LeadForm from "@/components/LeadForm";
+import travelAgency from "@/assets/travel-agency.png";
+import schoolAcademy from "@/assets/school-academy.png";
+import invoiceGenerator from "@/assets/invoice-generator.png";
+import vaMarketplace from "@/assets/va-marketplace.png";
+import socialMediaCrm from "@/assets/social-media-crm.png";
+import personalBrand from "@/assets/personal-brand.png";
 
 const Portfolio = () => {
   const [showLeadForm, setShowLeadForm] = useState(false);
@@ -12,46 +18,46 @@ const Portfolio = () => {
 
   const projectTypes = [
     {
-      category: "App Prototypes",
-      description: "We built this lead generation chatbot in 3 days",
-      image: "/placeholder.svg",
-      demoLink: "#",
-      timeline: "3-4 weeks"
-    },
-    {
-      category: "Business Websites",
-      description: "Fully responsive e-commerce store built in 5 weeks",
-      image: "/placeholder.svg",
-      demoLink: "#",
-      timeline: "3-5 weeks"
-    },
-    {
-      category: "Chatbot & AI Projects",
-      description: "Advanced AI assistant with custom training and integrations",
-      image: "/placeholder.svg",
-      demoLink: "#",
+      category: "Travel Agency Website",
+      description: "Beautiful booking platform with real-time availability and payment integration",
+      image: travelAgency,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
       timeline: "4-6 weeks"
     },
     {
-      category: "E-commerce Stores",
-      description: "Premium online store with 50+ products and analytics",
-      image: "/placeholder.svg",
-      demoLink: "#",
+      category: "School Academy Website",
+      description: "Modern educational platform with admissions, class schedules, and parent portal",
+      image: schoolAcademy,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
       timeline: "5-7 weeks"
     },
     {
-      category: "No-Code MVPs",
-      description: "Fully functional app built without traditional coding",
-      image: "/placeholder.svg",
-      demoLink: "#",
+      category: "Invoice Generator",
+      description: "Professional invoicing system with customizable templates and automated calculations",
+      image: invoiceGenerator,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
+      timeline: "3-4 weeks"
+    },
+    {
+      category: "Virtual Assistant Marketplace",
+      description: "Connect businesses with skilled VAs through an intuitive matching platform",
+      image: vaMarketplace,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
       timeline: "6-8 weeks"
     },
     {
-      category: "Webflow Sites",
-      description: "Stunning Webflow site with advanced animations",
-      image: "/placeholder.svg",
-      demoLink: "#",
-      timeline: "4-6 weeks"
+      category: "Social Media Manager CRM",
+      description: "All-in-one dashboard for managing clients, content scheduling, and analytics",
+      image: socialMediaCrm,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
+      timeline: "7-9 weeks"
+    },
+    {
+      category: "Personal Brand Builder App",
+      description: "AI-powered LinkedIn growth studio for building professional presence and engagement",
+      image: personalBrand,
+      demoLink: "https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698",
+      timeline: "5-7 weeks"
     }
   ];
 
