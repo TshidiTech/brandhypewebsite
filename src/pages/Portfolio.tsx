@@ -86,12 +86,19 @@ const Portfolio = () => {
               <Card key={index} className="package-card hover:shadow-xl transition-all group">
                 <CardHeader className="p-0">
                   <div className="aspect-video bg-muted rounded-t-lg overflow-hidden relative">
-                    <img 
-                      src={project.image} 
-                      alt={project.category}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground">
+                    <a 
+                      href={project.demoLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block cursor-pointer"
+                    >
+                      <img 
+                        src={project.image} 
+                        alt={project.category}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </a>
+                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground pointer-events-none">
                       {project.timeline}
                     </Badge>
                   </div>
@@ -160,7 +167,7 @@ const Portfolio = () => {
 
       {/* Lead Form Dialog */}
       <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto pointer-events-auto">
           <LeadForm 
             onSuccess={() => setShowLeadForm(false)} 
             serviceType={selectedService}
