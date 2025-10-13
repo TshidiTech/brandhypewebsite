@@ -3,14 +3,17 @@ import { Check, ArrowRight, Mail, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import LeadForm from "@/components/LeadForm";
 
 const Packages = () => {
   const [hoveredPackage, setHoveredPackage] = useState<number | null>(null);
+  const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<string>("");
 
   const packages = [
     {
       name: "One-Page Starter",
-      price: "R3,000",
       category: "Website",
       popular: false,
       description: "Perfect for small businesses just getting started online",
@@ -33,7 +36,6 @@ const Packages = () => {
     },
     {
       name: "Standard 5-Page with Plugins",
-      price: "R12,000",
       category: "Website",
       popular: true,
       description: "Complete business website with essential pages and functionality",
@@ -57,8 +59,7 @@ const Packages = () => {
     },
     {
       name: "E-commerce Basic",
-      price: "R38,000",
-      category: "E-commerce", 
+      category: "E-commerce",
       popular: false,
       description: "Start selling online with a professional store",
       timeline: "5–7 weeks",
@@ -81,7 +82,6 @@ const Packages = () => {
     },
     {
       name: "E-commerce Premium", 
-      price: "R55,000",
       category: "E-commerce",
       popular: false,
       description: "Advanced online store with premium features",
@@ -107,7 +107,6 @@ const Packages = () => {
     },
     {
       name: "Webflow Premium",
-      price: "R30,000",
       category: "Website",
       popular: false,
       description: "Custom Webflow site with advanced animations",
@@ -131,7 +130,6 @@ const Packages = () => {
     },
     {
       name: "Webflow Enterprise", 
-      price: "R42,000",
       category: "Website",
       popular: false,
       description: "Premium Webflow site with custom integrations",
@@ -156,7 +154,6 @@ const Packages = () => {
     },
     {
       name: "Clickable Prototype",
-      price: "R28,000", 
       category: "App",
       popular: false,
       description: "Interactive prototype for your app idea",
@@ -178,8 +175,7 @@ const Packages = () => {
     },
     {
       name: "No-Code MVP",
-      price: "R45,000",
-      category: "App", 
+      category: "App",
       popular: false,
       description: "Fully functional app built with no-code tools",
       timeline: "6–8 weeks",
@@ -200,7 +196,6 @@ const Packages = () => {
     },
     {
       name: "Basic FAQ / Lead Capture",
-      price: "R25,000",
       category: "Chatbot",
       popular: false,
       description: "Simple chatbot to answer common questions and capture leads",
@@ -222,7 +217,6 @@ const Packages = () => {
     },
     {
       name: "Advanced AI Bot",
-      price: "R55,000",
       category: "Chatbot",
       popular: false, 
       description: "Intelligent AI bot with custom training and integrations",
@@ -293,23 +287,18 @@ const Packages = () => {
                 onMouseLeave={() => setHoveredPackage(null)}
               >
                 <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <Badge 
-                        variant={pkg.popular ? "default" : "secondary"}
-                        className={pkg.popular ? "bg-accent text-accent-foreground" : ""}
-                      >
-                        {pkg.category}
+                  <div>
+                    <Badge 
+                      variant={pkg.popular ? "default" : "secondary"}
+                      className={pkg.popular ? "bg-accent text-accent-foreground" : ""}
+                    >
+                      {pkg.category}
+                    </Badge>
+                    {pkg.popular && (
+                      <Badge className="ml-2 bg-accent text-accent-foreground">
+                        Most Popular
                       </Badge>
-                      {pkg.popular && (
-                        <Badge className="ml-2 bg-accent text-accent-foreground">
-                          Most Popular
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-accent">{pkg.price}</div>
-                    </div>
+                    )}
                   </div>
                   <CardTitle className="text-2xl">{pkg.name}</CardTitle>
                   <p className="text-muted-foreground">{pkg.description}</p>
@@ -358,13 +347,19 @@ const Packages = () => {
 
                   {/* Action Buttons */}
                   <div className="space-y-3 pt-4">
-                    <Button className="w-full btn-hero">
+                    <Button 
+                      className="w-full btn-hero"
+                      onClick={() => {
+                        setSelectedPackage(pkg.name);
+                        setIsLeadFormOpen(true);
+                      }}
+                    >
                       Book Now
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                     <div className="flex space-x-2">
                       <Button variant="outline" className="flex-1" asChild>
-                        <a href="mailto:admin@tshiditech.co.za?subject=Enquiry about {pkg.name}">
+                        <a href={`mailto:admin@tshiditech.co.za?subject=Enquiry about ${pkg.name}`}>
                           <Mail className="w-4 h-4 mr-2" />
                           Email
                         </a>
@@ -383,6 +378,20 @@ const Packages = () => {
           </div>
         </div>
       </section>
+
+      {/* Lead Form Dialog */}
+      <Dialog open={isLeadFormOpen} onOpenChange={setIsLeadFormOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Start Your {selectedPackage} Project</DialogTitle>
+          </DialogHeader>
+          <LeadForm 
+            showTitle={false}
+            serviceType={selectedPackage}
+            onSuccess={() => setIsLeadFormOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
