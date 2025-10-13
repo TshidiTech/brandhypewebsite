@@ -21,7 +21,7 @@ const Footer = () => {
                 className="flex items-center text-sm text-muted-foreground hover:text-accent transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                admin@tshiditech.co.za
+                hello@tshidi.tech
               </a>
               <a 
                 href="tel:+27816617013" 
