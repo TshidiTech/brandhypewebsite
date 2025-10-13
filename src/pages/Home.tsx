@@ -177,7 +177,7 @@ const Home = () => {
 
       {/* Lead Form Dialog */}
       <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto pointer-events-auto">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader className="sr-only">
             <DialogTitle>Start Your Project</DialogTitle>
             <DialogDescription>Fill out this quick form to start your project</DialogDescription>

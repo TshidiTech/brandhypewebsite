@@ -30,7 +30,7 @@ const DiscountPopup = ({ onOpenForm }: DiscountPopupProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md pointer-events-auto">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <div className="flex items-center justify-center mb-4">
             <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center">
