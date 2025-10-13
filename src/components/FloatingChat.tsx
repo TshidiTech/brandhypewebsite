@@ -35,7 +35,7 @@ const FloatingChat = () => {
       items: [
         {
           q: "How does payment work?",
-          a: "50% deposit to begin, balance due at launch or 45 days (whichever comes first). Extra changes are billed at R450/hr after two revision rounds."
+          a: "50% deposit to begin, balance due before launch. Extra changes are billed at R450/hr after two revision rounds."
         },
         {
           q: "What's included in all packages?",
