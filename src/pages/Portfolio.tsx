@@ -167,7 +167,7 @@ const Portfolio = () => {
 
       {/* Lead Form Dialog */}
       <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto pointer-events-auto">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <LeadForm 
             onSuccess={() => setShowLeadForm(false)} 
             serviceType={selectedService}
