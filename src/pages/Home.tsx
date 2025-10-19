@@ -8,6 +8,7 @@ import TypingAnimation from "@/components/TypingAnimation";
 import LeadForm from "@/components/LeadForm";
 import DiscountPopup from "@/components/DiscountPopup";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import heroProfile from "@/assets/hero-profile.jpg";
 
 const Home = () => {
   const [showLeadForm, setShowLeadForm] = useState(false);
@@ -53,8 +54,18 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="gradient-hero min-h-screen flex items-center justify-center px-4 pt-16">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="relative min-h-screen flex items-center justify-center px-4 pt-24 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroProfile} 
+            alt="Professional workspace" 
+            className="w-full h-full object-cover grayscale"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/80"></div>
+        </div>
+        
+        <div className="max-w-6xl mx-auto text-center relative z-10">
           <div className="space-y-8 fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               We Help Businesses
@@ -115,22 +126,6 @@ const Home = () => {
                   </div>
                   <h3 className="text-2xl font-bold">{service.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                  {service.link ? (
-                    <Button className="btn-hero w-full" asChild>
-                      <Link to={service.link}>
-                        <Eye className="w-4 h-4 mr-2" />
-                        {service.cta}
-                      </Link>
-                    </Button>
-                  ) : (
-                    <Button 
-                      className="btn-hero w-full" 
-                      onClick={() => handleServiceCTA(service)}
-                    >
-                      {service.cta}
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  )}
                 </CardContent>
               </Card>
             ))}

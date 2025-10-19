@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, ArrowRight, Mail, ExternalLink } from "lucide-react";
+import { Check, ArrowRight, Mail, ExternalLink, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -345,32 +345,21 @@ const Packages = () => {
                     <p className="text-sm text-accent font-medium">{pkg.timeline}</p>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="space-y-3 pt-4">
+                  {/* Action Button */}
+                  <div className="pt-4">
                     <Button 
                       className="w-full btn-hero"
-                      onClick={() => {
-                        setSelectedPackage(pkg.name);
-                        setIsLeadFormOpen(true);
-                      }}
+                      asChild
                     >
-                      Book Now
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <a 
+                        href="https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View Demo
+                      </a>
                     </Button>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" className="flex-1" asChild>
-                        <a href={`mailto:admin@tshiditech.co.za?subject=Enquiry about ${pkg.name}`}>
-                          <Mail className="w-4 h-4 mr-2" />
-                          Email
-                        </a>
-                      </Button>
-                      <Button variant="outline" className="flex-1" asChild>
-                        <a href="https://wa.me/27816617013" target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          WhatsApp
-                        </a>
-                      </Button>
-                    </div>
                   </div>
                 </CardContent>
               </Card>

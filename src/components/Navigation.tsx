@@ -4,6 +4,7 @@ import { Menu, X, MessageSquare, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import LeadForm from "./LeadForm";
+import ConstructionBanner from "./ConstructionBanner";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,8 +21,10 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 w-full z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <ConstructionBanner />
+      <nav className="fixed top-8 w-full z-40 bg-background/95 backdrop-blur-sm border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold">
@@ -124,7 +127,8 @@ const Navigation = () => {
           <LeadForm onSuccess={() => setShowLeadForm(false)} />
         </DialogContent>
       </Dialog>
-    </nav>
+      </nav>
+    </>
   );
 };
 

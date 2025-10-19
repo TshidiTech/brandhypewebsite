@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import ChatMessage from "./ChatMessage";
 import ChatSuggestions from "./ChatSuggestions";
+import chatbotProfile from "@/assets/profile-chatbot.jpg";
 
 interface Message {
   id: string;
@@ -118,8 +119,14 @@ const InteractiveChatbot = () => {
       {isOpen && (
         <Card className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 max-w-md h-[80vh] sm:h-[600px] max-h-[600px] animate-scale-in flex flex-col shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between p-3 sm:p-4 border-b bg-card/95 backdrop-blur-sm">
-            <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5 text-accent" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-accent flex-shrink-0">
+                <img 
+                  src={chatbotProfile} 
+                  alt="TshidiTech Assistant" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h3 className="font-semibold text-sm sm:text-base">TshidiTech Assistant</h3>
             </div>
             <Button

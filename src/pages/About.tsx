@@ -1,6 +1,7 @@
 import { ArrowRight, Users, Award, Target, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import aboutProfile from "@/assets/about-profile.jpg";
 
 const About = () => {
   const values = [
@@ -34,24 +35,37 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-24">
       {/* Hero Section */}
-      <section className="py-24 px-4 gradient-hero">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            We Turn Ideas Into 
-            <span className="gradient-text block">Digital Reality</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            TshidiTech is a South African web development agency specializing in fast, 
-            results-driven digital solutions for growing businesses.
-          </p>
-          <Button className="btn-hero" asChild>
-            <a href="/packages">
-              View Our Packages
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
-          </Button>
+      <section className="py-24 px-4 gradient-hero relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="text-center md:text-left">
+              <h1 className="text-5xl font-bold mb-6">
+                We Turn Ideas Into 
+                <span className="gradient-text block">Digital Reality</span>
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8">
+                TshidiTech is a South African web development agency specializing in fast, 
+                results-driven digital solutions for growing businesses.
+              </p>
+              <Button className="btn-hero" asChild>
+                <a href="/packages">
+                  View Our Packages
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </a>
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="aspect-square rounded-lg overflow-hidden shadow-2xl">
+                <img 
+                  src={aboutProfile} 
+                  alt="TshidiTech professional" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

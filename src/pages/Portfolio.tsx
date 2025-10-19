@@ -108,27 +108,16 @@ const Portfolio = () => {
                     <CardTitle className="text-xl mb-2">{project.category}</CardTitle>
                     <p className="text-sm text-muted-foreground">{project.description}</p>
                   </div>
-                  <div className="flex gap-3">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1"
-                      asChild
-                    >
-                      <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                        <Eye className="w-4 h-4 mr-2" />
-                        View Demo
-                      </a>
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      className="flex-1 btn-hero"
-                      onClick={() => handleStartSimilar(project.category)}
-                    >
-                      Start Similar
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </div>
+                  <Button 
+                    size="sm" 
+                    className="w-full btn-hero"
+                    asChild
+                  >
+                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                      <Eye className="w-4 h-4 mr-2" />
+                      View Demo
+                    </a>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
