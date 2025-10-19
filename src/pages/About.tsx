@@ -38,34 +38,21 @@ const About = () => {
     <div className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="py-24 px-4 gradient-hero relative">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="text-center md:text-left">
-              <h1 className="text-5xl font-bold mb-6">
-                We Turn Ideas Into 
-                <span className="gradient-text block">Digital Reality</span>
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                TshidiTech is a South African web development agency specializing in fast, 
-                results-driven digital solutions for growing businesses.
-              </p>
-              <Button className="btn-hero" asChild>
-                <a href="/packages">
-                  View Our Packages
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
-            </div>
-            <div className="relative">
-              <div className="aspect-square rounded-lg overflow-hidden shadow-2xl">
-                <img 
-                  src={aboutProfile} 
-                  alt="TshidiTech professional" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-5xl font-bold mb-6">
+            We Turn Ideas Into 
+            <span className="gradient-text block">Digital Reality</span>
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            TshidiTech is a South African web development agency specializing in fast, 
+            results-driven digital solutions for growing businesses.
+          </p>
+          <Button className="btn-hero" asChild>
+            <a href="/packages">
+              View Our Packages
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -88,24 +75,35 @@ const About = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="package-card">
             <CardContent className="p-12">
-              <h2 className="text-3xl font-bold mb-8 text-center">Our Story</h2>
-              <div className="space-y-6 text-muted-foreground leading-relaxed">
-                <p>
-                  TshidiTech was founded with a simple mission: make professional web development 
-                  accessible to South African businesses of all sizes. We saw too many great 
-                  businesses struggling with outdated websites or being priced out by traditional agencies.
-                </p>
-                <p>
-                  That's why we created our productized service model—transparent pricing, 
-                  clear deliverables, and predictable timelines. No more endless scope creep 
-                  or surprise bills. Just honest, quality work that helps your business grow online.
-                </p>
-                <p>
-                  Today, we've helped over 100 businesses establish their digital presence, 
-                  from small local shops to growing enterprises. Whether you need a simple 
-                  website or a complex e-commerce platform, we have the experience and 
-                  systems to deliver results.
-                </p>
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="md:w-32 md:flex-shrink-0 mx-auto md:mx-0">
+                  <img 
+                    src={aboutProfile} 
+                    alt="TshidiTech team" 
+                    className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-8">Our Story</h2>
+                  <div className="space-y-6 text-muted-foreground leading-relaxed">
+                    <p>
+                      TshidiTech was founded with a simple mission: make professional web development 
+                      accessible to South African businesses of all sizes. We saw too many great 
+                      businesses struggling with outdated websites or being priced out by traditional agencies.
+                    </p>
+                    <p>
+                      That's why we created our productized service model—transparent pricing, 
+                      clear deliverables, and predictable timelines. No more endless scope creep 
+                      or surprise bills. Just honest, quality work that helps your business grow online.
+                    </p>
+                    <p>
+                      Today, we've helped over 100 businesses establish their digital presence, 
+                      from small local shops to growing enterprises. Whether you need a simple 
+                      website or a complex e-commerce platform, we have the experience and 
+                      systems to deliver results.
+                    </p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

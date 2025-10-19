@@ -86,41 +86,37 @@ const Portfolio = () => {
               <Card key={index} className="package-card hover:shadow-xl transition-all group">
                 <CardHeader className="p-0">
                   <div className="aspect-video bg-muted rounded-t-lg overflow-hidden relative">
-                    <a 
-                      href={project.demoLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block cursor-pointer"
-                    >
-                      <img 
-                        src={project.image} 
-                        alt={project.category}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </a>
+                    <img 
+                      src={project.image} 
+                      alt={project.category}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                     <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground pointer-events-none">
                       {project.timeline}
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6 space-y-4">
+                <CardContent className="p-6">
                   <div>
                     <CardTitle className="text-xl mb-2">{project.category}</CardTitle>
                     <p className="text-sm text-muted-foreground">{project.description}</p>
                   </div>
-                  <Button 
-                    size="sm" 
-                    className="w-full btn-hero"
-                    asChild
-                  >
-                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                      <Eye className="w-4 h-4 mr-2" />
-                      View Demo
-                    </a>
-                  </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Standalone View Demo Button */}
+          <div className="mt-12 text-center">
+            <Button 
+              className="btn-hero text-lg px-8 py-6"
+              asChild
+            >
+              <a href="https://www.canva.com/design/DAG1YFzjT7E/TfYELVFp7xenKd-YF9Utfw/watch?utm_content=DAG1YFzjT7E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h097385e698" target="_blank" rel="noopener noreferrer">
+                <Eye className="w-5 h-5 mr-2" />
+                View Demo
+              </a>
+            </Button>
           </div>
 
           {/* CTA Section */}
